@@ -49,6 +49,7 @@ router.post("/register", async (req, res) => {
     );
     res.sendStatus(200).json(user.rows);
   } catch (error) {
+    console.log("ERROR IN AUTH/REGISTER");
     console.log("Error Occured", error);
     res.status(409).json({ error: error.message });
   }
@@ -92,6 +93,7 @@ router.post("/refresh", async (req, res) => {
     else {
       res.clearCookie(refreshToken);
       res.sendStatus(400);
+      return;
     }
   } catch (e) {
     //res.clearCookie(refreshToken)
@@ -114,6 +116,7 @@ router.delete("/logout", async (req, res) => {
 
     res.json(refreshToken.rows);
   } catch (e) {
+    console.log("ERROR IN AUTH/REFRESH");
     res.json({ error: e.message });
   }
 });
@@ -155,6 +158,7 @@ router.post("/login", async (req, res) => {
       res.json({ accessToken: accessToken });
     }
   } catch (error) {
+    console.log("ERROR IN AUTH/LOGIN");
     res.status(400).send(error.message);
     console.log(error);
   }
