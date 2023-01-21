@@ -3,7 +3,7 @@ const pool = require("../connection")
 
 const router = express.Router()
 
-// get all classes from a user
+// get single class based off id 
 router.get("/class/:id", async (req, res) => {
     try {
         const id = req.params.id
@@ -12,8 +12,7 @@ router.get("/class/:id", async (req, res) => {
         const class_ = await pool.query(`
         SELECT class, id, class_picture
         FROM classes
-        WHERE id = ($1)
-        ORDER BY date DESC;
+        WHERE id = ($1);
         `, [id])       
         res.json(class_.rows) 
     } catch (error) {
@@ -48,7 +47,8 @@ router.get("/:user", async (req, res) => {
         const classes = await pool.query(`
         SELECT class, id, class_picture
         FROM classes
-        WHERE username = ($1);
+        WHERE username = ($1)
+        ORDER BY id;
         `, [username])  
         // if (classes.rows[0].class_picture !== null)  { 
             
