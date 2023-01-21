@@ -87,6 +87,7 @@ router.post("/refresh", async (req, res) => {
           httpOnly: true,
           sameSite: "none",
           secure: true,
+          domain: ".railway.app",
         });
         res.json({ accessToken: accessToken });
       });
@@ -156,11 +157,13 @@ router.post("/login", async (req, res) => {
         httpOnly: true,
         sameSite: "none",
         secure: true,
+        domain: ".railway.app",
       });
       res.cookie("acessToken", accessToken, {
         httpOnly: true,
         sameSite: "none",
         secure: true,
+        domain: ".railway.app",
       });
       res.json({ accessToken: accessToken });
     }
