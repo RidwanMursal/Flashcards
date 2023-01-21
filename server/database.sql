@@ -2,31 +2,39 @@ CREATE DATABASE flashcards;
 
 CREATE TABLE users(
     user_id SERIAL PRIMARY KEY, 
-    user_name VARCHAR(30), 
-    password VARCHAR(20),
-    profile_picture TEXT, 
+    user_name VARCHAR(30) NOT NULL UNIQUE, 
+    password VARCHAR(100) NOT NULL,
+    profile_picture varchar(100), 
     date_created TIMESTAMP DEFAULT current_timestamp 
 );
 
 CREATE TABLE classes(
-    class_id SERIAL PRIMARY KEY,
-    user_id INTEGER,
-    class_name VARCHAR(30), 
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(30) NOT NULL,
+    class VARCHAR(30) NOT NULL, 
+    UNIQUE (username, class) 
+    class_picture varchar(100), 
     date TIMESTAMP DEFAULT current_timestamp
 );
 
 CREATE TABLE decks(
-    deck_id SERIAL PRIMARY KEY, 
+    id SERIAL PRIMARY KEY, 
     class_id INTEGER, 
+    name VARCHAR(30), 
+    UNIQUE(class_id, name)
     date TIMESTAMP DEFAULT current_timestamp
 );
 
 CREATE TABLE cards(
-    card_id SERIAL PRIMARY KEY, 
+    id SERIAL PRIMARY KEY, 
     deck_id INTEGER,
-    question VARCHAR(4000), 
-    answer VARCHAR(4000), 
+    question VARCHAR(1000), 
+    answer VARCHAR(1000), 
     image TEXT,  
     date TIMESTAMP DEFAULT current_timestamp
+);
+
+CREATE TABLE refresh_tokens(
+    token VARCHAR(200) PRIMARY KEY
 );
 
