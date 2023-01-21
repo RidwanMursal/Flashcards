@@ -86,6 +86,7 @@ router.post("/refresh", async (req, res) => {
         res.cookie("acessToken", accessToken, {
           httpOnly: true,
           sameSite: "none",
+          secure: true,
         });
         res.json({ accessToken: accessToken });
       });
@@ -154,10 +155,12 @@ router.post("/login", async (req, res) => {
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
         sameSite: "none",
+        secure: true,
       });
       res.cookie("acessToken", accessToken, {
         httpOnly: true,
         sameSite: "none",
+        secure: true,
       });
       res.json({ accessToken: accessToken });
     }
