@@ -19,7 +19,10 @@ app.use(bodyParser.json({ limit: "5mb" }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://flashcard-client.vercel.app",
+    origin: [
+      "https://flashcard-client.vercel.app",
+      "https://flashcard-client-production.up.railway.app/",
+    ],
     methods: [
       "get",
       "GET",
