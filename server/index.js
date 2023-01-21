@@ -30,6 +30,7 @@ app.use(
       "delete",
       "DELETE",
     ],
+    credentials: true,
   })
 );
 
