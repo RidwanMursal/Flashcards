@@ -47,7 +47,7 @@ router.post("/register", async (req, res) => {
         `,
       [username, hashedPassword]
     );
-    res.sendStatus(200).json(user.rows);
+    res.json(user.rows);
   } catch (error) {
     console.log("ERROR IN AUTH/REGISTER");
     console.log("Error Occured", error);
@@ -97,6 +97,7 @@ router.post("/refresh", async (req, res) => {
     }
   } catch (e) {
     //res.clearCookie(refreshToken)
+    console.log("ERROR IN AUTH/REFRESH");
     res.send({ error: e.message });
   }
 });
@@ -116,7 +117,7 @@ router.delete("/logout", async (req, res) => {
 
     res.json(refreshToken.rows);
   } catch (e) {
-    console.log("ERROR IN AUTH/REFRESH");
+    console.log("ERROR IN AUTH/LOGOUT");
     res.json({ error: e.message });
   }
 });
