@@ -21,7 +21,7 @@ app.use(
   cors({
     origin: [
       "https://flashcard-client.vercel.app",
-      "https://flashcard-client-production.up.railway.app/",
+      "https://flashcard-client-production.up.railway.app",
     ],
     methods: [
       "get",
