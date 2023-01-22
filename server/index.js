@@ -22,6 +22,7 @@ app.use(
     origin: [
       "https://flashcard-client.vercel.app",
       "https://flashcard-client-production.up.railway.app",
+      "http://localhost:3000",
     ],
     methods: [
       "get",
