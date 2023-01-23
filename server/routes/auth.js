@@ -87,7 +87,10 @@ router.post("/refresh", async (req, res) => {
           httpOnly: true,
           sameSite: "none",
           secure: true,
-          domain: ".railway.app",
+          domain:
+            process.env.NODE_ENV === "development"
+              ? "localhost"
+              : ".railway.app",
         });
         res.json({ accessToken: accessToken });
       });
@@ -157,13 +160,15 @@ router.post("/login", async (req, res) => {
         httpOnly: true,
         sameSite: "none",
         secure: true,
-        domain: ".railway.app",
+        domain:
+          process.env.NODE_ENV === "development" ? "localhost" : ".railway.app",
       });
       res.cookie("acessToken", accessToken, {
         httpOnly: true,
         sameSite: "none",
         secure: true,
-        domain: ".railway.app",
+        domain:
+          process.env.NODE_ENV === "development" ? "localhost" : ".railway.app",
       });
       res.json({ accessToken: accessToken });
     }
