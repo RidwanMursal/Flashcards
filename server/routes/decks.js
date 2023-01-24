@@ -150,22 +150,4 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-//update post
-// router.patch("/:id", authenticateToken, async (req, res) => {
-//     try {
-//         // check if user has already liked the post
-//         const {message, image, tags, title} = req.body
-//         const id = req.params.id
-//         const update = await pool.query(`
-//             UPDATE posts
-//             SET message = ($1), image = ($2), tags = ($3), title = ($4)
-//             WHERE post_id = ($5)
-//             RETURNING *
-//         `, [message, image, tags, title, id])
-//         res.json(update)
-//     } catch (error) {
-//         console.log(error)
-//     }
-// })
-
 module.exports = router;

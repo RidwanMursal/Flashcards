@@ -83,7 +83,7 @@ router.post("/refresh", async (req, res) => {
           process.env.ACCESS_TOKEN_SECRET,
           { expiresIn: "30s" }
         );
-        res.cookie("acessToken", accessToken, {
+        res.cookie("accessToken", accessToken, {
           httpOnly: true,
           sameSite: "none",
           secure: true,
@@ -110,8 +110,8 @@ router.post("/refresh", async (req, res) => {
 
 router.delete("/logout", async (req, res) => {
   try {
-    const { token } = req.body;
-    console.log("this is the refresh token: ", token);
+    const token = req.cookies.refreshToken;
+    console.log("HIT ATUTH/LOGOUT this is the refresh token: ", token);
 
     const refreshToken = pool.query(
       `
@@ -120,8 +120,9 @@ router.delete("/logout", async (req, res) => {
         `,
       [token]
     );
-
-    res.json(refreshToken.rows);
+    res.clearCookie("refreshToken");
+    res.clearCookie("accessToken");
+    res.sendStatus(200);
   } catch (e) {
     console.log("ERROR IN AUTH/LOGOUT");
     res.json({ error: e.message });
@@ -163,7 +164,7 @@ router.post("/login", async (req, res) => {
         domain:
           process.env.NODE_ENV === "development" ? "localhost" : ".railway.app",
       });
-      res.cookie("acessToken", accessToken, {
+      res.cookie("accessToken", accessToken, {
         httpOnly: true,
         sameSite: "none",
         secure: true,
