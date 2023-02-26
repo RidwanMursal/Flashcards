@@ -48,10 +48,10 @@ router.post("/register", async (req, res) => {
       [username, hashedPassword]
     );
     res.json(user.rows);
-  } catch (error) {
+  } catch (e) {
     console.log("ERROR IN AUTH/REGISTER");
-    console.log("Error Occured", error);
-    res.status(409).json({ error: error.message });
+    console.log("Error Occured", e);
+    res.status(409).json({ error: e.message });
   }
 });
 
@@ -125,7 +125,8 @@ router.delete("/logout", async (req, res) => {
     res.sendStatus(200);
   } catch (e) {
     console.log("ERROR IN AUTH/LOGOUT");
-    res.json({ error: e.message });
+    console.log("error: ", e);
+    //res.json({ error: e.message });
   }
 });
 
@@ -150,7 +151,6 @@ router.post("/login", async (req, res) => {
     )
       throw new Error("Invalid Credentials");
     else {
-      console.log("HEYY");
       const user = { name: username, authority: "user" };
       const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "30s",
@@ -173,10 +173,9 @@ router.post("/login", async (req, res) => {
       });
       res.json({ accessToken: accessToken });
     }
-  } catch (error) {
+  } catch (e) {
     console.log("ERROR IN AUTH/LOGIN");
-    res.status(400).send(error.message);
-    console.log(error);
+    console.log(e);
   }
 });
 
@@ -187,6 +186,7 @@ const insertTokenToDB = async (token) => {
   try {
     await pool.query(`INSERT INTO refresh_tokens (token) values ($1)`, [token]);
   } catch (e) {
+    console.log("ERROR IN INSERTTOKEN HELPER")
     console.log(e.message);
   }
 
